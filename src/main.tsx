@@ -1,3 +1,5 @@
 import { createRoot } from "react-dom/client";
+import 'bootstrap/dist/css/bootstrap.min.css';
+import MainLayout from "@layouts/MainLayout/MainLayout";
 
-createRoot(document.getElementById("root")!).render(<h1>Hello world</h1>);
+createRoot(document.getElementById("root")!).render(<MainLayout />);
