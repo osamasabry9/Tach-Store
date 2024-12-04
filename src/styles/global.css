@@ -1,0 +1,29 @@
+.notFound {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  height: 100vh;
+  text-align: center;
+}
+
+.notFound h1 {
+  font-size: 60px;
+}
+
+.notFound p {
+  font-size: 30px;
+}
+
+.notFound a {
+  text-decoration: none;
+  color: black;
+  background-color: #0dcaf0;
+  padding: 10px 20px;
+  border-radius: 5px;
+  margin-top: 20px;
+  display: inline-block;
+  transition: all 0.3s ease-in-out;
+  font-size: 20px;
+  text-align: center;
+}
