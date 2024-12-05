@@ -10,8 +10,10 @@ const Categories = () => {
     (state) => state.categories
   );
   useEffect(() => {
-    dispatch(actGetCategories());
-  }, [dispatch]);
+    if (!records.length) {
+      dispatch(actGetCategories());
+    }
+  }, [dispatch, records]);
 
   if (loading === "pending") {
     return <h1>Loading...</h1>;
