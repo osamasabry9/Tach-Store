@@ -1,12 +1,8 @@
 import { Button } from "react-bootstrap";
 import styles from "./styles.module.css";
+import { TProduct } from "@customTypes/product";
 const { product, productImg } = styles;
 
-type TProduct = {
-  title: string;
-  price: number;
-  img: string;
-};
 const Product = ({ title, price, img }: TProduct) => {
   return (
     <div className={product}>
