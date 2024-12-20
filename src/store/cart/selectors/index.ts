@@ -1,11 +1,17 @@
-import { useAppSelector } from "@store/hooks";
+import { createSelector } from "@reduxjs/toolkit";
+import { RootState } from "../../index";
 
-const cartItems = useAppSelector((state) => state.cart.items);
-
-  const getCartTotalQuantitySelector = Object.values(cartItems).reduce(
-    (accumulator, currentValue) => accumulator + currentValue,
-    0
-  );
-
+const getCartTotalQuantitySelector = createSelector(
+  (state: RootState) => state.cart.items,
+  (items) => {
+    const totalQuantity = Object.values(items).reduce(
+      (accumulator, currentValue) => {
+        return accumulator + currentValue;
+      },
+      0
+    );
+    return totalQuantity;
+  }
+);
 
 export { getCartTotalQuantitySelector };
