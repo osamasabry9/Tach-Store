@@ -21,3 +21,9 @@
   display: block;
   margin-right: 5px;
 }
+
+.headerLeftBar {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
