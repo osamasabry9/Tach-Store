@@ -10,6 +10,7 @@ import Categories from "@pages/Categories";
 import Login from "@pages/Login";
 import Register from "@pages/Register";
 import Error from "@pages/Error";
+import CartPage from "@pages/Cart";
 
 // Router
 const router = createBrowserRouter([
@@ -39,6 +40,7 @@ const router = createBrowserRouter([
       { path: "categories", element: <Categories /> },
       { path: "login", element: <Login /> },
       { path: "register", element: <Register /> },
+      { path: "cart", element: <CartPage /> },
     ],
   },
 ]);
