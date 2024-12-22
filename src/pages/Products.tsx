@@ -12,7 +12,7 @@ const Products = () => {
   const dispatch = useAppDispatch();
   const { loading, error, records } = useAppSelector((state) => state.products);
   const cartItems = useAppSelector((state) => state.cart.items);
-  const productFullInfo = records.map((product) => {
+  const productsFullInfo = records.map((product) => {
     return {
       ...product,
       quantity: cartItems[product.id] || 0,
@@ -25,7 +25,7 @@ const Products = () => {
     };
   }, [dispatch]);
 
-  const ListOfProducts = records.length > 0 ? productFullInfo : [];
+  const ListOfProducts = records.length > 0 ? productsFullInfo : [];
 
   return (
     <>
