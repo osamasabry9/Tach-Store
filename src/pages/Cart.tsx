@@ -1,14 +1,14 @@
 import { useCallback, useEffect } from "react";
 import { useAppDispatch, useAppSelector } from "@store/hooks";
-import { actGetProductsByItems, cartItemChangeQuantity, cartItemRemove } from "@store/cart/cartSlice";
-import { Heading } from "@components/common";
 import {
-  CartItemList,
-  CartSubtotalPrice,
-} from "@components/eCommerce";
+  actGetProductsByItems,
+  cartItemChangeQuantity,
+  cartItemRemove,
+  cleanCartProductsFullInfo,
+} from "@store/cart/cartSlice";
+import { Heading } from "@components/common";
+import { CartItemList, CartSubtotalPrice } from "@components/eCommerce";
 import { Loading } from "@components/feedback";
-
-
 
 const CartPage = () => {
   const dispatch = useAppDispatch();
@@ -17,6 +17,10 @@ const CartPage = () => {
   );
   useEffect(() => {
     dispatch(actGetProductsByItems());
+
+    return () => {
+      dispatch(cleanCartProductsFullInfo());
+    };
   }, [dispatch]);
 
   const products = productsFullInfo.map((el) => ({
@@ -38,10 +42,9 @@ const CartPage = () => {
     [dispatch]
   );
 
-
   return (
     <>
-      <Heading>Your Cart</Heading>
+      <Heading title="Your Cart" />
       <Loading loading={loading} error={error}>
         {products.length ? (
           <>
