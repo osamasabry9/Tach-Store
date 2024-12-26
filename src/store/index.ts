@@ -1,9 +1,19 @@
 import { configureStore, combineReducers } from "@reduxjs/toolkit";
-import { persistStore, persistReducer, FLUSH, REHYDRATE, PAUSE, PERSIST, PURGE, REGISTER } from 'redux-persist';
-import storage from 'redux-persist/lib/storage';
+import {
+  persistStore,
+  persistReducer,
+  FLUSH,
+  REHYDRATE,
+  PAUSE,
+  PERSIST,
+  PURGE,
+  REGISTER,
+} from "redux-persist";
+import storage from "redux-persist/lib/storage";
 import categories from "./categories/categoriesSlice";
 import products from "./products/productSlice";
 import cart from "./cart/cartSlice";
+import wishlist from "./wishlist/wishlistSlice";
 
 /* 1 - persist config selected reducers and type of storage and key
 const rootPersistConfig = {
@@ -17,25 +27,29 @@ const rootPersistConfig = {
  */
 
 const cartPersistConfig = {
-  key: 'cart',
+  key: "cart",
   storage,
-  whitelist: ['items'],
+  whitelist: ["items"],
+};
+const wishlistPersistConfig = {
+  key:"wishlist",
+  storage,
+  whitelist:["itemsId"]
 }
 
-
- // 2 - create root reducer
+// 2 - create root reducer
 const rootReducer = combineReducers({
   categories,
   products,
-  cart : persistReducer(cartPersistConfig, cart),
+  cart: persistReducer(cartPersistConfig, cart),
+  wishlist: persistReducer(wishlistPersistConfig, wishlist),
 });
-
 
 // 3 - create persisted reducer
 // const persistedReducer = persistReducer(rootPersistConfig, rootReducer);
 
 // 4 - create store
- const store = configureStore({
+const store = configureStore({
   reducer: rootReducer,
   middleware: (getDefaultMiddleware) =>
     getDefaultMiddleware({

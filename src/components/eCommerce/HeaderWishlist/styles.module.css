@@ -2,13 +2,16 @@
   align-self: flex-end;
   cursor: pointer;
   display: flex;
-  align-items: center;
   justify-content: center;
+  align-items: center;
+  border-right: 1px solid black;
+  padding-right: 10px;
+  margin-right: 10px;
 }
 
 .container h3 {
   font-size: 15px;
-  margin-left: 4px;
+  margin-left: 1px;
   margin-bottom: 0;
 }
 
@@ -24,8 +27,8 @@
   text-align: center;
   border: 1px solid;
   position: absolute;
-  top: -15px;
-  right: -10px;
+  top: -13px;
+  right: -5px;
   font-size: 12px;
 }
 

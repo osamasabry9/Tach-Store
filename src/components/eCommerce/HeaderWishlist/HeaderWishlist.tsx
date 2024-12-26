@@ -1,17 +1,16 @@
 import { useState, useEffect } from "react";
-import Logo from "@assets/Icons/iconBasket.svg?react";
-import { useAppSelector } from "@store/hooks";
+import Logo from "@assets/Icons/wishlist.svg?react";
 import { useNavigate } from "react-router-dom";
+import { useAppSelector } from "@store/hooks";
+
 
 import styles from "./styles.module.css";
-import { getCartTotalQuantitySelector } from "@store/cart/cartSlice";
-
 const { container, totalNum, pumpAnimate, iconWrapper } = styles;
 
-const HeaderBasket = () => {
+const HeaderWishlist = () => {
   const navigate = useNavigate();
   const [isAnimate, setIsAnimate] = useState(false);
-  const totalQuantity = useAppSelector(getCartTotalQuantitySelector);
+  const totalQuantity = useAppSelector((state) => state.wishlist.itemsId.length);
   const quantityStyle = `${totalNum} ${
     isAnimate ? pumpAnimate : ""
   }`;
@@ -27,16 +26,16 @@ const HeaderBasket = () => {
   }, [totalQuantity]);
 
   return (
-    <div className={container} onClick={() => navigate("/cart")}>
+    <div className={container} onClick={() => navigate("/wishlist")}>
        <div className={iconWrapper}>
-        <Logo title="basket icon" />
+        <Logo title="Wishlist icon" />
         {totalQuantity > 0 && (
           <div className={quantityStyle}>{totalQuantity}</div>
         )}
       </div>
-      <h3>Cart</h3>
+      <h3>Wishlist</h3>
     </div>
   );
 };
 
-export default HeaderBasket;
+export default HeaderWishlist;
