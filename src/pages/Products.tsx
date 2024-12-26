@@ -2,7 +2,10 @@ import { Product } from "@components/eCommerce";
 import { useAppDispatch, useAppSelector } from "@store/hooks";
 import { useEffect } from "react";
 import { useParams } from "react-router-dom";
-import { actGetProducts, productsCleanUp } from "@store/products/productSlice";
+import {
+  actGetProducts,
+  cleanProductsRecords,
+} from "@store/products/productSlice";
 import { Loading } from "@components/feedback";
 import { GridList, Heading } from "@components/common";
 import { TProduct } from "@customTypes/product";
@@ -24,17 +27,14 @@ const Products = () => {
   useEffect(() => {
     dispatch(actGetProducts(prefix as string));
     return () => {
-      dispatch(productsCleanUp());
+      dispatch(cleanProductsRecords());
     };
   }, [dispatch]);
 
   const ListOfProducts = records.length > 0 ? productsFullInfo : [];
   return (
     <>
-      <Heading>
-        {" "}
-        <span className="text-capitalize">{prefix}</span> Products
-      </Heading>
+      <Heading title={`${prefix?.toUpperCase()} Products`} />
       <Loading loading={loading} error={error}>
         <GridList<TProduct>
           records={ListOfProducts}
