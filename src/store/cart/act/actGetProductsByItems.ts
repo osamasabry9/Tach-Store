@@ -1,6 +1,7 @@
 import { createAsyncThunk } from "@reduxjs/toolkit";
 import { RootState } from "@store/index";
 import axios from "axios";
+import { axiosErrorHandler } from "@util/index";
 
 import { TProduct } from "@customTypes/product";
 type TResponse = TProduct[];
@@ -19,10 +20,7 @@ const actGetProductsByItems = createAsyncThunk(
       );
       return data;
     } catch (error) {
-      if (axios.isAxiosError(error)) {
-        return rejectWithValue(error.response?.data.message || error.message);
-      }
-      return rejectWithValue("Something went wrong in getting products 😭");
+      return rejectWithValue(axiosErrorHandler(error));
     }
   }
 );
