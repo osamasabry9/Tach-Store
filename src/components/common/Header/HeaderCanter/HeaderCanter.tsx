@@ -32,7 +32,6 @@ const HeaderCounter = ({
     return () => clearTimeout(debounce);
   }, [totalQuantity]);
 
-  console.log("render counter");
   return (
     <div className={container} onClick={() => navigate(pageNavigate)}>
       <div className={iconWrapper}>

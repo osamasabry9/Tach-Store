@@ -1,7 +1,7 @@
 import { Product } from "@components/eCommerce";
 import { Loading } from "@components/feedback";
 import { GridList, Heading } from "@components/common";
-import { TProduct } from "@customTypes/product";
+import { TProduct } from "@types";
 import useProducts from "@hooks/useProducts";
 
 const Products = () => {

@@ -11,11 +11,10 @@ const useCategories = () => {
     (state) => state.categories
   );
   useEffect(() => {
-    if (!records.length) {
-      dispatch(actGetCategories());
-    }
+   const promise =   dispatch(actGetCategories());
 
     return () => {
+      promise.abort();
       dispatch(cleanCategoriesRecords());
     };
   }, [dispatch]);

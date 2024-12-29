@@ -20,8 +20,9 @@ const useProducts = () => {
     };
   });
   useEffect(() => {
-    dispatch(actGetProducts(prefix as string));
+   const promise =   dispatch(actGetProducts(prefix as string));
     return () => {
+      promise.abort();
       dispatch(cleanProductsRecords());
     };
   }, [dispatch]);
