@@ -1,29 +1,27 @@
 import { Row, Col } from "react-bootstrap";
 
-type TGridListProps<T> = {
+type GridListProps<T> = {
   records: T[];
-  renderItem: (record: T) =>  React.ReactNode;
-}
-const GridList = <T extends { id: number }>({ records, renderItem }: TGridListProps<T>) => {
+  renderItem: (record: T) => JSX.Element;
+};
 
-  const renderItems = records.map((record) => (
-    <Col
-      key={record.id}
-      xs={6}
-      md={3}
-      className="
-        d-flex
-        justify-content-center
-        mb-5 mt-2
-      "
-    >
-      {renderItem(record)}
-    </Col>
-  ));
+const GridList = <T extends { id?: number }>({
+  records,
+  renderItem,
+}: GridListProps<T>) => {
+  const renderList =
+    records.length > 0
+      ? records.map((record) => (
+          <Col
+            xs={3}
+            key={record.id}
+            className="d-flex justify-content-center mb-5 mt-2"
+          >
+            {renderItem(record)}
+          </Col>
+        ))
+      : "there are no records";
+  return <Row>{renderList}</Row>;
+};
 
-  return (
-    <Row>{renderItems}</Row>
-  )
-}
-
-export default GridList
+export default GridList;

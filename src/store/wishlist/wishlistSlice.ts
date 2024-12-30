@@ -1,4 +1,4 @@
-import { TProduct } from "@customTypes/product";
+import { TProduct, isString } from "@types";
 import { createSlice } from "@reduxjs/toolkit";
 import actLikeToggle from "./act/actLikeToggle";
 import actGetWishlist from "./act/actGetWishlist";
@@ -21,7 +21,7 @@ const wishlistSlice = createSlice({
   name: "wishlist",
   initialState,
   reducers: {
-    productsFullInfoCleanUp: (state) => {
+    cleanWishlistProductsFullInfo: (state) => {
       state.productsFullInfo = [];
     },
   },
@@ -38,12 +38,12 @@ const wishlistSlice = createSlice({
         state.itemsId = state.itemsId.filter((id) => id !== action.payload.id);
         state.productsFullInfo = state.productsFullInfo.filter(
           (el) => el.id !== action.payload.id
-        )
+        );
       }
     });
     builder.addCase(actLikeToggle.rejected, (state, action) => {
       state.loading = "failed";
-      if (action.payload && typeof action.payload === "string") {
+      if (isString(action.payload)) {
         state.error = action.payload;
       }
     });
@@ -59,14 +59,14 @@ const wishlistSlice = createSlice({
     });
     builder.addCase(actGetWishlist.rejected, (state, action) => {
       state.loading = "failed";
-      if (action.payload && typeof action.payload === "string") {
+      if (isString(action.payload)) {
         state.error = action.payload;
       }
     });
   },
-
 });
 
 export { actLikeToggle, actGetWishlist };
-export const { productsFullInfoCleanUp } = wishlistSlice.actions;
+export const { cleanWishlistProductsFullInfo } =
+  wishlistSlice.actions;
 export default wishlistSlice.reducer;

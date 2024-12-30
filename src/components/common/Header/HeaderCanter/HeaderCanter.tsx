@@ -1,19 +1,26 @@
 import { useState, useEffect } from "react";
-import Logo from "@assets/Icons/wishlist.svg?react";
 import { useNavigate } from "react-router-dom";
-import { useAppSelector } from "@store/hooks";
-
 
 import styles from "./styles.module.css";
+
+type HeaderCounterProps = {
+  title: string;
+  totalQuantity: number;
+  svgIcon: React.ReactNode;
+  pageNavigate: string;
+};
+
 const { container, totalNum, pumpAnimate, iconWrapper } = styles;
 
-const HeaderWishlist = () => {
+const HeaderCounter = ({
+  title,
+  totalQuantity,
+  svgIcon,
+  pageNavigate,
+}: HeaderCounterProps) => {
   const navigate = useNavigate();
   const [isAnimate, setIsAnimate] = useState(false);
-  const totalQuantity = useAppSelector((state) => state.wishlist.itemsId.length);
-  const quantityStyle = `${totalNum} ${
-    isAnimate ? pumpAnimate : ""
-  }`;
+  const quantityStyle = `${totalNum} ${isAnimate ? pumpAnimate : ""}`;
 
   useEffect(() => {
     if (!totalQuantity) return;
@@ -26,16 +33,16 @@ const HeaderWishlist = () => {
   }, [totalQuantity]);
 
   return (
-    <div className={container} onClick={() => navigate("/wishlist")}>
-       <div className={iconWrapper}>
-        <Logo title="Wishlist icon" />
+    <div className={container} onClick={() => navigate(pageNavigate)}>
+      <div className={iconWrapper}>
+        {svgIcon}
         {totalQuantity > 0 && (
           <div className={quantityStyle}>{totalQuantity}</div>
         )}
       </div>
-      <h3>Wishlist</h3>
+      <h3>{title}</h3>
     </div>
   );
 };
 
-export default HeaderWishlist;
+export default HeaderCounter;

@@ -1,4 +1,4 @@
-import { TLoading } from "@customTypes/shared";
+import { TLoading } from "@types";
 import Styles from "./styles.module.css";
 
 const { load, spinner } = Styles;

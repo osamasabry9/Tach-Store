@@ -1,10 +1,11 @@
 import { createAsyncThunk } from "@reduxjs/toolkit";
 import axios from "axios";
+import { axiosErrorHandler } from "@utils";
 
 const actLikeToggle = createAsyncThunk(
   "wishlist/actLikeToggle",
   async (id: number, thunkAPI) => {
-    const { rejectWithValue } = thunkAPI;
+    const { rejectWithValue,  } = thunkAPI;
     try {
       const isRecordExist = await axios.get(
         `/wishlist?userId=1&productId=${id}`
@@ -18,10 +19,7 @@ const actLikeToggle = createAsyncThunk(
         return { type: "add", id };
       }
     } catch (error) {
-      if (axios.isAxiosError(error)) {
-        return rejectWithValue(error.response?.data.message || error.message);
-      }
-      return rejectWithValue("Something went wrong in getting products 😭");
+      return rejectWithValue(axiosErrorHandler(error));
     }
   }
 );
