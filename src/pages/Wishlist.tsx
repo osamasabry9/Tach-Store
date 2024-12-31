@@ -10,16 +10,13 @@ const Wishlist = () => {
   return (
     <>
       <Heading title="Your Wishlist" />
-      {ListOfProducts.length > 0 ? (
-        <Loading loading={loading} error={error}>
-          <GridList<TProduct>
-            records={ListOfProducts}
-            renderItem={(record) => <Product {...record} />}
-          />
-        </Loading>
-      ) : (
-        <p className="text-center ">No products in wishlist</p>
-      )}
+      <Loading status={loading} error={error} type="product">
+        <GridList<TProduct>
+          emptyMessage="Your wishlist is empty, please like some products to add"
+          records={ListOfProducts}
+          renderItem={(record) => <Product {...record} />}
+        />
+      </Loading>
     </>
   );
 };

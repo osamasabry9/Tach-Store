@@ -10,8 +10,9 @@ const Categories = () => {
   return (
     <>
       <Heading title={"Categories"} />
-      <Loading loading={loading} error={error}>
+      <Loading status={loading} error={error} type="category">
         <GridList<TCategory>
+          emptyMessage="No categories found"
           records={ListOfCategories}
           renderItem={(record) => <Category {...record} />}
         />
