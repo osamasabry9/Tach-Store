@@ -1,24 +1,42 @@
-import { TLoading } from "@types";
-import Styles from "./styles.module.css";
+import CategorySkeleton from "../skeletons/CategorySkeleton/CategorySkeleton";
+import ProductSkeleton from "../skeletons/ProductSkeleton/ProductSkeleton";
+import CartSkeleton from "../skeletons/CartSkeleton/CartSkeleton";
+import LottieHandler from "../LottieHandler/LottieHandler";
+import TableSkeleton from "../skeletons/TableSkeleton/TableSkeleton";
 
-const { load, spinner } = Styles;
+import { TLoading } from "@types";
+
+const skeletonsTypes = {
+  category: CategorySkeleton,
+  product: ProductSkeleton,
+  cart: CartSkeleton,
+  table: TableSkeleton,
+};
 
 type LoadingProps = {
-  loading: TLoading;
-  error: string | null;
+  status: TLoading;
+  error: null | string;
   children: React.ReactNode;
+  type?: keyof typeof skeletonsTypes;
 };
-const Loading = ({ loading, error, children }: LoadingProps) => {
-  if (loading === "pending") {
+
+const Loading = ({
+  status,
+  error,
+  children,
+  type = "category",
+}: LoadingProps) => {
+  const Component = skeletonsTypes[type];
+
+  if (status === "pending") {
+    return <Component />;
+  }
+  if (status === "failed") {
     return (
-      <div className={load}>
-        <div className={spinner}></div>
-        <p>Loading...</p>
+      <div>
+        <LottieHandler type="error" message={error as string} />
       </div>
     );
-  }
-  if (loading === "failed") {
-    return <div>{error}</div>;
   }
   return <div>{children}</div>;
 };
