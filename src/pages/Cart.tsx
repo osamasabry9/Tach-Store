@@ -4,7 +4,7 @@ import { Loading, LottieHandler } from "@components/feedback";
 import useCart from "@hooks/useCart";
 
 const CartPage = () => {
-  const { products, loading, error, changeQuantityHandler, removeItemHandler } =
+  const { products, loading, error, changeQuantityHandler, removeItemHandler, userAccessToken, placeOrderStatus } =
     useCart();
 
   return (
@@ -18,10 +18,16 @@ const CartPage = () => {
               changeQuantityHandler={changeQuantityHandler}
               removeItemHandler={removeItemHandler}
             />
-            <CartSubtotalPrice products={products} />
+            <CartSubtotalPrice products={products}
+              userAccessToken={userAccessToken}/>
           </>
+        ) : placeOrderStatus === "succeeded" ? (
+          <LottieHandler
+            message="Your order has been placed successfully"
+            type="success"
+          />
         ) : (
-          <LottieHandler type="empty" message="Your cart is empty" />
+          <LottieHandler message="Your cart is empty" type="empty" />
         )}
       </Loading>
     </>
