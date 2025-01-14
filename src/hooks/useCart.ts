@@ -8,17 +8,14 @@ import {
 } from "@store/cart/cartSlice";
 const useCart = () => {
   const dispatch = useAppDispatch();
+
   const { items, productsFullInfo, loading, error } = useAppSelector(
     (state) => state.cart
   );
-  useEffect(() => {
-   const promise =  dispatch(actGetProductsByItems());
 
-    return () => {
-      promise.abort();
-      dispatch(cleanCartProductsFullInfo());
-    };
-  }, [dispatch]);
+  const userAccessToken = useAppSelector((state) => state.auth.accessToken);
+
+  const placeOrderStatus = useAppSelector((state) => state.orders.loading);
 
   const products = productsFullInfo.map((el) => ({
     ...el,
@@ -38,7 +35,15 @@ const useCart = () => {
     },
     [dispatch]
   );
-  return { products, changeQuantityHandler, removeItemHandler, loading, error };
+  useEffect(() => {
+   const promise =  dispatch(actGetProductsByItems());
+
+    return () => {
+      promise.abort();
+      dispatch(cleanCartProductsFullInfo());
+    };
+  }, [dispatch]);
+  return { products, changeQuantityHandler, removeItemHandler, loading, error, placeOrderStatus, userAccessToken };
 };
 
 export default useCart;
